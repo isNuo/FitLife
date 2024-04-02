@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="adminCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="adminCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="adminCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">收支情况</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toAdminMain}">主页</a></li>
+                    <li class="breadcrumb-item active">收支情况</li>
+                </ol>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+<!--                            <div class="card-header">-->
+<!--                                <i class="fas fa-chart-bar me-1"></i>-->
+<!--                                会员缴费收入与器材购买支出对比图-->
+<!--                            </div>-->
+                                 <!-- 会员缴费收入与器材购买支出对比 折线图 -->
+                                <div class="card-body" style="width: 100%; height: 350px" id="stackedLineChart"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+<!--                            <div class="card-header">-->
+<!--                                <i class="fas fa-chart-pie me-1"></i>-->
+<!--                                器材类型数量统计-->
+<!--                            </div>-->
+                            <!-- 器材类型数量统计 饼状图 -->
+                            <div class="card-body" style="width: 100%; height: 350px" id="pieChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header">-->
+<!--                                <i class="fas fa-chart-bar me-1"></i>-->
+<!--                                会员缴费收入与器材购买支出对比-->
+<!--                            </div>-->
+<!--                            <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>-->
+<!--&lt;!&ndash;                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header">-->
+<!--                                <i class="fas fa-chart-pie me-1"></i>-->
+<!--                                器材购买类型数量情况-->
+<!--                            </div>-->
+<!--                            <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>-->
+<!--&lt;!&ndash;                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        收支表
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>日期（月）</th>
+                                <th>会员缴纳金额收入</th>
+                                <th>器材购买支出</th>
+<!--                                <th>净收入</th>-->
+                            </tr>
+                            </thead>
+
+                            <tbody>
+<!--                            <tr th:each="dataOfMonth,iter:${dataOfMonthList}" th:with="rechargeAmountTotal=${rechargeAmountList[iter.index]},equipmentAmountTotal=${equipmentAmountList[iter.index]},netIncome=${netIncomeList[iter.index]}">-->
+                            <tr th:each="dataOfMonth,iter:${dataOfMonthList}" th:with="rechargeAmountTotal=${rechargeAmountList[iter.index]},equipmentAmountTotal=${equipmentAmountList[iter.index]}">
+                                <td th:text="${dataOfMonth}">日期（月）</td>
+                                <td th:text="${rechargeAmountTotal}">会员缴纳金额收入</td>
+                                <td th:text="${equipmentAmountTotal}">器材购买支出</td>
+<!--                                <td th:text="${netIncome}">净收入</td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <!--        <footer th:replace="adminCommon::common-footer"></footer>-->
+    </div>
+</div>
+
+<div th:include="adminCommon::common-scripts"></div>
+</body>
+</html>

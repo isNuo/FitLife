@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.CoachTableMapper">
+
+    <select id="findAll" resultType="coachTable">
+        SELECT *
+        FROM coach_table
+    </select>
+
+    <delete id="deleteCoachByAccount" parameterType="java.lang.Integer">
+        DELETE
+        FROM coach_table
+        WHERE coach_account = #{coachAccount}
+    </delete>
+
+    <insert id="insertCoach" parameterType="coachTable">
+        INSERT INTO coach_table(coach_account, coach_password, coach_name, coach_gender, coach_age, entry_time,
+                                coach_message)
+        VALUES (#{coachAccount}, #{coachPassword}, #{coachName}, #{coachGender}, #{coachAge}, #{entryTime}, #{classId},
+                #{coachMessage})
+    </insert>
+
+    <update id="updateCoachByCoachAccount" parameterType="coachTable">
+        UPDATE coach_table
+        SET coach_account = #{coachAccount},
+            coach_password = #{coachPassword},
+            coach_name = #{coachName},
+            coach_gender = #{coachGender},
+            coach_age = #{coachAge},
+            coach_message = #{coachMessage}
+        WHERE coach_account = #{coachAccount}
+    </update>
+
+    <select id="selectByCoachAccount" parameterType="java.lang.Integer" resultType="coachTable">
+        SELECT *
+        FROM coach_table
+        WHERE coach_account = #{coachAccount}
+    </select>
+
+<!--    <select id="selectByClassId" parameterType="java.lang.Integer" resultType="coachTable">-->
+<!--        SELECT *-->
+<!--        FROM coach_table-->
+<!--        WHERE class_id= #{classId}-->
+<!--    </select>-->
+
+    <select id="selectByAccountAndPassword" resultType="coachTable">
+        SELECT *
+        FROM coach_table
+        WHERE coach_account = #{coachAccount}
+          AND coach_password = #{coachPassword}
+    </select>
+
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM coach_table
+    </select>
+
+    <delete id="deleteOrderByCoachAccount" parameterType="java.lang.Integer">
+        DELETE
+        FROM coach_table
+        WHERE coach_account = #{coachAccount}
+    </delete>
+
+
+</mapper>

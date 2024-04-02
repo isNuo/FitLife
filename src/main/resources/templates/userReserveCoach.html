@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="userCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="userCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="userCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">预约教练</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toUserMain}">主页</a></li>
+                    <li class="breadcrumb-item active">预约教练</li>
+                </ol>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        教练信息表
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>入职时间</th>
+<!--                                <th>指导课程</th>-->
+                                <th>备注信息</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+<!--                            <tr th:each="coach,iterCoach:${coachList}" th:with="class=${classList[iterCoach.index]}">-->
+                            <tr th:each="coach,iterCoach:${coachList}">
+                                <td th:text="${coach.coachAccount}">工号</td>
+                                <td th:text="${coach.coachName}">姓名</td>
+                                <td th:text="${coach.coachGender}">性别</td>
+                                <td th:text="${coach.coachAge}">年龄</td>
+                                <td th:text="${coach.entryTime}">入职时间</td>
+<!--                                <td th:text="${class.className}">指导课程</td>-->
+                                <td th:text="${coach.coachMessage}">备注信息</td>
+<!--                                <td>-->
+<!--                                    <a th:href="@{/user/reserveCoach(classId=${coach.classId})}"-->
+<!--                                       style="text-decoration: none">-->
+<!--                                        <input type="button" class="btn btn-sm btn-outline-primary" value="预约">-->
+<!--                                    </a>-->
+<!--                                </td>-->
+                                <td>
+                                    <a th:href="@{/user/toSelCoachClass(coachAccount=${coach.coachAccount})}"
+                                       style="text-decoration: none">
+                                        <input type="button" class="btn btn-sm btn-outline-primary" value="指导课程信息">
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--        <footer th:replace="userCommon::common-footer"></footer>-->
+    </div>
+</div>
+
+<div th:include="userCommon::common-scripts"></div>
+</body>
+</html>

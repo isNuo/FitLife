@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="userCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="userCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="userCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">会员卡缴费</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toUserMain}">主页</a></li>
+                    <li class="breadcrumb-item active">会员卡缴费</li>
+                </ol>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        会员卡信息表
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>会员账号/卡号</th>
+                                <th>姓名</th>
+<!--                                <th>性别</th>-->
+<!--                                <th>联系方式</th>-->
+                                <th>办卡时间</th>
+                                <th>账户余额</th>
+                                <th>操作</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td th:text="${member.memberAccount}">会员账号/卡号</td>
+                                <td th:text="${member.memberName}">姓名</td>
+<!--                                <td th:text="${member.memberGender}">性别</td>-->
+<!--                                <td th:text="${member.memberPhone}">联系方式</td>-->
+                                <td th:text="${member.cardTime}">办卡时间</td>
+                                <td th:text="${member.cardBalance}">账户余额</td>
+                                <td>
+                                    <a th:href="@{/user/toUserPay}"
+                                       style="text-decoration: none">
+                                        <input type="button" class="btn btn-sm btn-outline-primary" value="充值">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/user/selUserPayment(memberAccount=${member.memberAccount})}"
+                                       style="text-decoration: none">
+                                        <input type="button" class="btn btn-sm btn-outline-secondary" value="缴费记录">
+                                    </a>
+                                </td>
+                            </tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+<!--        <footer th:replace="userCommon::common-footer"></footer>-->
+    </div>
+</div>
+
+<div th:include="userCommon::common-scripts"></div>
+</body>
+</html>

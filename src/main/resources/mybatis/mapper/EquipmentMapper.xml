@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.EquipmentMapper">
+
+    <select id="findAll" resultType="equipment">
+        SELECt *
+        FROM equipment
+    </select>
+
+    <delete id="deleteByEquipmentId" parameterType="java.lang.Integer">
+        DELETE
+        FROM equipment
+        WHERE equipment_id = #{equipmentId}
+    </delete>
+
+    <insert id="insertEquipment" parameterType="equipment">
+        INSERT INTO equipment (equipment_id, equipment_name, equipment_location, equipment_status, unit_price, equipment_number, purchase_time, equipment_message)
+        VALUES (#{equipmentId}, #{equipmentName}, #{equipmentLocation}, #{equipmentStatus}, #{unitPrice}, #{equipmentNumber}, #{purchaseTime}, #{equipmentMessage})
+    </insert>
+
+    <update id="updateEquipmentByEquipmentId" parameterType="equipment">
+        UPDATE equipment
+        SET equipment_location = #{equipmentLocation},
+            equipment_status   = #{equipmentStatus},
+            equipment_message  = #{equipmentMessage}
+        WHERE equipment_id = #{equipmentId}
+    </update>
+
+    <select id="selectByEquipmentId" parameterType="java.lang.Integer" resultType="equipment">
+        SELECT *
+        FROM equipment
+        WHERE equipment_id = #{equipmentId}
+    </select>
+
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        SELECT SUM(equipment_number)
+        FROM equipment
+    </select>
+
+    <select id="selectByMonth" resultType="java.lang.Integer">
+        SELECT SUM(unit_price * equipment_number)
+        FROM equipment
+        WHERE YEAR(purchase_time) = #{year} AND MONTH(purchase_time) = #{month}
+    </select>
+
+</mapper>

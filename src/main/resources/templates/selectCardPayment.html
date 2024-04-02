@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="adminCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="adminCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="adminCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">缴费记录</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toAdminMain}">主页</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/member/selMembership}">会员卡缴费管理</a></li>
+                    <li class="breadcrumb-item active">缴费记录</li>
+                </ol>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        缴费记录
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead class="bg-light">
+                            <tr>
+                                <th scope="col" class="border-0">缴费记录id</th>
+                                <th scope="col" class="border-0">会员账号</th>
+                                <th scope="col" class="border-0">充值金额</th>
+                                <th scope="col" class="border-0">充值时间</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="memberPayment:${memberPaymentList}">
+                                <td th:text="${memberPayment.memberPaymentId}">缴费记录id</td>
+                                <td th:text="${memberPayment.memberAccount}">会员账号</td>
+                                <td th:text="${memberPayment.rechargeAmount}">充值金额</td>
+                                <td th:text="${memberPayment.rechargeTime}">充值时间</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <a th:href="@{/member/selMembership}" style="text-align:center;margin-top:10px;margin-bottom:20px">
+                        <input type="submit" class="btn btn-outline-secondary" value="返回">
+                    </a>
+                </div>
+            </div>
+        </main>
+        <!--        <footer th:replace="adminCommon::common-footer"></footer>-->
+    </div>
+</div>
+
+<div th:include="adminCommon::common-scripts"></div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="userCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="userCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="userCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">支付宝支付</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toUserMain}">主页</a></li>
+                    <li class="breadcrumb-item active"><a th:href="@{/user/toSelCard}">会员卡缴费</a></li>
+                    <li class="breadcrumb-item active">支付宝支付</li>
+                </ol>
+
+                <div class="card mb-4">
+                    <form th:action="@{/user/toUserPay}" method="post" name="payForm" onsubmit="return beforeSubmit(this)">
+                        <div class="container">
+                            <!--                    <h1 style="margin-bottom: 20px;">支付宝支付</h1>-->
+                            <div class="payment-info" style="margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" id="rechargeAmount" name="rechargeAmount" placeholder="请输入支付金额">
+                                    <p id="error-msg" style="color: red; display: none; margin-left: 10px;">请输入正确的充值金额</p>
+                                </div>
+                            </div>
+                            <div class="payment-info" style="margin-bottom: 20px; display: flex; align-items: center;">
+                                <button type="submit" style="margin-right: 20px;">确认支付</button>
+                                <p id="error-msg" style="color: red; display: none; margin-left: 10px;">请输入正确的充值金额</p>
+                            </div>
+
+                            <div style="margin-top: 20px; display: flex; align-items: center;">
+                                <p>请扫描二维码进行支付：</p>
+                                <img id="qr-code" src="" class="qr-code" width="200" height="200" style="margin-left: 20px;">
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <div class="order-info">
+                                    <p>订单号：<span id="order"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <a th:href="@{/user/toSelCard}" style="text-align:center;margin-top:10px;margin-bottom:20px">
+                        <input type="submit" class="btn btn-outline-secondary" value="返回">
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<div th:include="userCommon::common-scripts"></div>
+
+<script>
+    function generateRandomOrderNumber() {
+        return Math.floor(Math.random() * 10000000000);
+    }
+
+    function generateQR() {
+        var amount = document.getElementById("rechargeAmount").value;
+        if (isNaN(amount) || amount <= 0) {
+            document.getElementById("error-msg").style.display = "block";
+            return false;
+        } else {
+            document.getElementById("error-msg").style.display = "none";
+        }
+        var orderNumber = generateRandomOrderNumber();
+        var qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + amount;
+        document.getElementById("qr-code").src = qrCodeUrl;
+        document.getElementById("order").textContent = orderNumber;
+    }
+
+    function beforeSubmit(form) {
+        generateQR();
+        return true;
+    }
+</script>
+</body>
+</html>

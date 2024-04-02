@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="adminCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="adminCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="adminCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">充值</h1>
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toAdminMain}">主页</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/member/selMembership}">会员卡管理</a></li>
+                    <li class="breadcrumb-item active">充值</li>
+                </ol>
+
+                <div class="card mb-4">
+
+                    <form th:action="@{/member/updateBalance}" method="post" name="updateForm"
+                          onsubmit="return beforeSubmit(this)">
+                        <table class="table table-hover">
+                            <tr>
+                                <td colspan="2"><strong>会员卡信息：</strong></td>
+                            </tr>
+                            <tr>
+<!--                                <td text-align="center">会员账号/卡号：</td>-->
+<!--                                <td th:text="${member.memberAccount}">会员账号/卡号</td>-->
+                                <td text-align="center">会员账号/卡号：</td>
+                                <td><input type="text" class="form-control" readonly="readonly"
+                                           th:value="${member.memberAccount}" name="memberAccount">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td text-align="center">姓名：</td>
+                                <td th:text="${member.memberName}">姓名</td>
+                            </tr>
+                            <tr>
+                                <td text-align="center">性别：</td>
+                                <td th:text="${member.memberGender}">性别</td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td text-align="center">年龄：</td>-->
+<!--                                <td><input type="text" class="form-control" th:value="${member.memberAge}"-->
+<!--                                           name="memberAge">-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td text-align="center">联系方式：</td>
+                                <td th:text="${member.memberPhone}">联系方式</td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td text-align="center">身高：</td>-->
+<!--                                <td><input type="text" class="form-control" th:value="${member.memberHeight}"-->
+<!--                                           name="memberHeight">-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td text-align="center">体重：</td>-->
+<!--                                <td><input type="text" class="form-control" th:value="${member.memberWeight}"-->
+<!--                                           name="memberWeight">-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td text-align="center">账户余额：</td>
+                                <td th:text="${member.cardBalance}">账户余额</td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td text-align="center">剩余课时：</td>-->
+<!--                                <td th:text="${member.cardRemainClass}">剩余课时</td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>充值操作：</strong></td>
+                            </tr>
+                            <tr>
+                                <td text-align="center">充值金额：</td>
+                                <td><input type="text" class="form-control" placeholder="充值金额" name="rechargeAmount"></td>
+                            </tr>
+
+                            <tr>
+                                <td text-align="center">请再次输入充值金额：</td>
+                                <td><input type="text" class="form-control" placeholder="充值金额" name="rechargeAmount1">
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="text-align:center;margin-bottom:15px">
+                            <input type="submit" class="btn btn-outline-success" value="确认充值">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!--        <footer th:replace="adminCommon::common-footer"></footer>-->
+    </div>
+</div>
+
+<div th:include="adminCommon::common-scripts"></div>
+<script type="text/javascript">
+    function beforeSubmit(updateForm) {
+        if (updateForm.rechargeAmount.value == ""){
+            alert("请输入充值金额！")
+            return  false;
+        }
+        if (updateForm.rechargeAmount.value !== updateForm.rechargeAmount1.value) {
+            alert("两次充值金额输入不一致，请重新输入");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
